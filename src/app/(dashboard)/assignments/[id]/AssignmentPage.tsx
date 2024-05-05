@@ -127,26 +127,28 @@ export default function AssignmentPage({
           </a>
         </div>
 
-        <div hidden={
-              currentUser?.role === "MENTOR" ||
-              currentUser?.role === "INSTRUCTOR"
-            }>
-          {assignment.maxSubmissions<=assignment.submissions.length?
-          <div className="text-white font-semibold text-center my-5">No more responses are accepted!</div>:
-          <Link
+        {
+
+        (  currentUser?.role === "MENTOR" || currentUser?.role === "INSTRUCTOR" )&&
+
+          <div >
+            {assignment.maxSubmissions<=assignment.submissions.length?
+            <div className="text-white font-semibold text-center my-5">No more responses are accepted!</div>:
+            <Link
             href={`/playground/html-css-js?assignmentId=${params.id}`}
-          >
-            {assignment?.submissions.length === 0 ? (
-              <button className="bg-blue-600 inline p-2 text-sm text-white rounded font-semibold">
-                Submit through Playground
-              </button>
-            ) : (
-              <button className="bg-primary-600 inline p-2 text-sm rounded font-semibold text-white">
-                Submit another response
-              </button>
-            )}
-          </Link>}
-        </div>
+            >
+              {assignment?.submissions.length === 0 ? (
+                <button className="bg-blue-600 inline p-2 text-sm text-white rounded font-semibold">
+                  Submit through Playground
+                </button>
+              ) : (
+                <button className="bg-primary-600 inline p-2 text-sm rounded font-semibold text-white">
+                  Submit another response
+                </button>
+              )}
+            </Link>}
+          </div>
+        }
         {assignment.submissions.length > 0 ? (
           <>
             <h1>

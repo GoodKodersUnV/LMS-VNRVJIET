@@ -103,7 +103,7 @@ const EditClass = () => {
                             <option value="">Select Video Type</option>
                             <option value="DRIVE">Drive</option>
                             <option value="YOUTUBE">YouTube</option>
-                            <option value="ZOOM">Zoom</option>
+                    kw        <option value="ZOOM">Zoom</option>
                         </select>
                         <input
                             type="text"
