@@ -27,7 +27,7 @@ const formatDate = (e: string) => {
 const UserProfile = ({ currentUser }: { currentUser: any }) => {
     const router = useRouter();
     const [formData, setFormData] = useState(currentUser);
-
+    
 
     return (
         <div className="flex flex-col items-center m-5 mt-12 md:mt-20 font-semibold dark:text-white">

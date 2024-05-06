@@ -200,24 +200,6 @@ export default function AssignmentPage({
                       scope="col"
                       className="px-6 py-3 text-sm font-medium uppercase tracking-wider"
                     >
-                      Responsiveness
-                    </th>
-                    <th
-                      scope="col"
-                      className="px-6 py-3 text-sm font-medium uppercase tracking-wider"
-                    >
-                      Styling
-                    </th>
-                    <th
-                      scope="col"
-                      className="px-6 py-3 text-sm font-medium uppercase tracking-wider"
-                    >
-                      Others
-                    </th>
-                    <th
-                      scope="col"
-                      className="px-6 py-3 text-sm font-medium uppercase tracking-wider"
-                    >
                       Total
                     </th>
                     {currentUser.role !== "STUDENT" && (
@@ -271,63 +253,6 @@ export default function AssignmentPage({
                           {submission.submissionDate
                             .toISOString()
                             .split("T")[0] || "NA"}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          {editingIndex === index ? (
-                            <input
-                              title="null"
-                              type="number"
-                              value={editedScores.responsiveness}
-                              onChange={(e) => {
-                                const newScore = parseInt(e.target.value);
-                                setEditedScores((prevScores) => ({
-                                  ...prevScores,
-                                  responsiveness: newScore,
-                                }));
-                              }}
-                              className="bg-transparent border-black rounded-lg px-2 border-2 text-background w-20"
-                            />
-                          ) : (
-                            rValue?.score || "NA"
-                          )}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          {editingIndex === index ? (
-                            <input
-                              title="null"
-                              type="number"
-                              value={editedScores.styling}
-                              onChange={(e) => {
-                                const newScore = parseInt(e.target.value);
-                                setEditedScores((prevScores) => ({
-                                  ...prevScores,
-                                  styling: newScore,
-                                }));
-                              }}
-                              className="bg-transparent border-black rounded-lg px-2 border-2 text-background w-20"
-                            />
-                          ) : (
-                            sValue?.score || "NA"
-                          )}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          {editingIndex === index ? (
-                            <input
-                              title="null"
-                              type="number"
-                              value={editedScores.other}
-                              onChange={(e) => {
-                                const newScore = parseInt(e.target.value);
-                                setEditedScores((prevScores) => ({
-                                  ...prevScores,
-                                  other: newScore,
-                                }));
-                              }}
-                              className="bg-transparent border-black rounded-lg px-2 border-2 text-background w-20"
-                            />
-                          ) : (
-                            oValue?.score || "NA"
-                          )}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
                           {rValue?.score || sValue?.score || oValue?.score
