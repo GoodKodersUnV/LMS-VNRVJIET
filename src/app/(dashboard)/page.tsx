@@ -1,5 +1,6 @@
 import {
   getDashboardData,
+  getLeaderboardDataForStudent,
   getMentorLeaderboardData,
   getMentorLeaderboardDataForDashboard,
 } from "@/actions/getLeaderboard";
@@ -21,15 +22,14 @@ export default async function Home() {
   if (currentUser?.role === "STUDENT") {
     // student
     const data = await getDashboardData();
-    const leaderboard =await getLeaderboardData();
+    // const total =await getLeaderboardDataForStudent();
     let total = 0;
-    const currentUsern = await getCurrentUser();
-    const currentUserAssignments = leaderboard.sortedSubmissions.filter((submission: any) => submission?.enrolledUser?.user?.id === currentUsern?.id);
-    if (currentUserAssignments) {
-      for (const score of currentUserAssignments ) {
-        total += score?.totalPoints || 0;
-      }
-    }
+    // if (leaderboard) {
+    //   for (const score of leaderboard) {
+    //     total += score?.totalPoints || 0;
+    //   }
+    // }
+    // return <pre>{JSON.stringify(total,null,2)}</pre>
     if (!data) return;
     const {
       position,
@@ -46,7 +46,7 @@ export default async function Home() {
             Welcome back {currentUser?.name} 👏
           </h1>
           <p className="text-secondary-50 font-medium text-base mt-3">
-            Here is your report for {}
+            Here is your report
           </p>
         </div>
         <div className="flex mb-10 p-2 text-center gap-4 justify-center flex-wrap">
@@ -59,7 +59,7 @@ export default async function Home() {
               className="m-auto"
             />
             <p className="text-primary-600 font-bold pt-2">
-              {total}
+            {total===0?"NA":total}
             </p>
             <h1 className="p-1 text-sm font-bold">
               Your current Score in the Leaderboard.
@@ -112,7 +112,7 @@ export default async function Home() {
             Welcome back {currentUser?.name} 👏
           </h1>
           <p className="text-secondary-50 font-medium text-base mt-3">
-            Here is your report for {}
+            Here is your report
           </p>
         </div>
         <div className="flex mb-10 p-2 text-center gap-4 justify-center flex-wrap">
@@ -168,7 +168,7 @@ export default async function Home() {
             Welcome back {currentUser?.name} 👏
           </h1>
           <p className="text-secondary-50 font-medium text-base mt-3">
-            Here is your report for {}
+            Here is your report
           </p>
         </div>
         <div className="flex mb-10 p-2 text-center gap-4 justify-center flex-wrap">
