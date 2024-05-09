@@ -22,7 +22,6 @@ export default function StudentWiseAssignments({
   if (!isMounted) {
     return null;
   }
-  // return <pre>{JSON.stringify(assignments, null, 2)}</pre>
   return (
     <div className="flex flex-col gap-4">
       <div className="flex flex-wrap justify-between items-center gap-3">

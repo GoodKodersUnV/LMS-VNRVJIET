@@ -52,7 +52,14 @@ export default function AssignmentPage({
 
   const handleSave = async (index: number) => {
     try {
+      if(editedScores.responsiveness < 0 || editedScores.responsiveness > 10 || editedScores.styling < 0 || editedScores.styling > 10 || editedScores.other < 0 || editedScores.other > 10){
+        toast.error("Scores should be between 0 and 10");
+        return;
+      }
+
       toast.loading("Updating Scores...");
+
+
       await axios.post("/api/points", {
         submissionId: assignment.submissions[index].id,
         score: editedScores.responsiveness,
@@ -78,7 +85,6 @@ export default function AssignmentPage({
     }
   };
   const pathname=usePathname()
-  // return <pre>{JSON.stringify(assignments, null, 2)}</pre>
   return (
     <div className="mx-2 md:mx-10 my-2 relative">
       <h1 className="text-center p-2 bg-gradient-to-l from-blue-500 to-blue-600 text-white rounded text-sm md:text-lg font-medium">
@@ -323,19 +329,19 @@ export default function AssignmentPage({
                       scope="col"
                       className="px-6 py-3 text-sm font-medium uppercase tracking-wider"
                     >
-                      Responsiveness
+                      Responsiveness (/10)
                     </th>
                     <th
                       scope="col"
                       className="px-6 py-3 text-sm font-medium uppercase tracking-wider"
                     >
-                      Styling
+                      Styling (/10)
                     </th>
                     <th
                       scope="col"
                       className="px-6 py-3 text-sm font-medium uppercase tracking-wider"
                     >
-                      Others
+                      Others (/10)
                     </th>
                     <th
                       scope="col"
@@ -401,9 +407,11 @@ export default function AssignmentPage({
                             <input
                               title="null"
                               type="number"
-                              value={editedScores.responsiveness}
+                              value={Math.min(Math.max(editedScores.responsiveness, 0), 10)}
                               onChange={(e) => {
-                                const newScore = parseInt(e.target.value);
+                                let newScore = parseInt(e.target.value);
+                                newScore = isNaN(newScore) ? 0 : newScore;
+                                newScore = Math.min(Math.max(newScore, 0), 10); 
                                 setEditedScores((prevScores) => ({
                                   ...prevScores,
                                   responsiveness: newScore,
@@ -420,9 +428,11 @@ export default function AssignmentPage({
                             <input
                               title="null"
                               type="number"
-                              value={editedScores.styling}
+                              value={Math.min(Math.max(editedScores.styling, 0), 10)}
                               onChange={(e) => {
-                                const newScore = parseInt(e.target.value);
+                                let newScore = parseInt(e.target.value);
+                                newScore = isNaN(newScore) ? 0 : newScore;
+                                newScore = Math.min(Math.max(newScore, 0), 10); 
                                 setEditedScores((prevScores) => ({
                                   ...prevScores,
                                   styling: newScore,
@@ -439,12 +449,14 @@ export default function AssignmentPage({
                             <input
                               title="null"
                               type="number"
-                              value={editedScores.other}
+                              value={Math.min(Math.max(editedScores.other, 0), 10)}
                               onChange={(e) => {
-                                const newScore = parseInt(e.target.value);
+                                let newScore = parseInt(e.target.value);
+                                newScore = isNaN(newScore) ? 0 : newScore;
+                                newScore = Math.min(Math.max(newScore, 0), 10); 
                                 setEditedScores((prevScores) => ({
                                   ...prevScores,
-                                  other: newScore,
+                                  other: newScore ,
                                 }));
                               }}
                               className="bg-transparent border-black rounded-lg px-2 border-2 text-background w-20"
