@@ -56,9 +56,9 @@ export default function AssignmentPage({
         toast.error("Scores should be between 0 and 10");
         return;
       }
+      
 
       toast.loading("Updating Scores...");
-
 
       await axios.post("/api/points", {
         submissionId: assignment.submissions[index].id,
@@ -76,10 +76,11 @@ export default function AssignmentPage({
         category: "OTHER",
       });
       toast.dismiss();
+      toast.success("Scores saved successfully");
     } catch {
+      toast.dismiss()
       toast.error("Failed to save scores");
     } finally {
-      toast.success("Scores saved successfully");
       setEditingIndex(-1);
       router.refresh();
     }
@@ -409,9 +410,7 @@ export default function AssignmentPage({
                               type="number"
                               value={Math.min(Math.max(editedScores.responsiveness, 0), 10)}
                               onChange={(e) => {
-                                let newScore = parseInt(e.target.value);
-                                newScore = isNaN(newScore) ? 0 : newScore;
-                                newScore = Math.min(Math.max(newScore, 0), 10); 
+                                const newScore = Math.min(Math.max(parseInt(e.target.value), 0), 10); 
                                 setEditedScores((prevScores) => ({
                                   ...prevScores,
                                   responsiveness: newScore,
@@ -430,9 +429,7 @@ export default function AssignmentPage({
                               type="number"
                               value={Math.min(Math.max(editedScores.styling, 0), 10)}
                               onChange={(e) => {
-                                let newScore = parseInt(e.target.value);
-                                newScore = isNaN(newScore) ? 0 : newScore;
-                                newScore = Math.min(Math.max(newScore, 0), 10); 
+                                const newScore = Math.min(Math.max(parseInt(e.target.value), 0), 10); 
                                 setEditedScores((prevScores) => ({
                                   ...prevScores,
                                   styling: newScore,
@@ -451,9 +448,7 @@ export default function AssignmentPage({
                               type="number"
                               value={Math.min(Math.max(editedScores.other, 0), 10)}
                               onChange={(e) => {
-                                let newScore = parseInt(e.target.value);
-                                newScore = isNaN(newScore) ? 0 : newScore;
-                                newScore = Math.min(Math.max(newScore, 0), 10); 
+                                const newScore = Math.min(Math.max(parseInt(e.target.value), 0), 10); 
                                 setEditedScores((prevScores) => ({
                                   ...prevScores,
                                   other: newScore ,
