@@ -1,4 +1,4 @@
-import { createCourse, getEnrolledCourses } from "@/actions/courses";
+import {  getEnrolledCourses } from "@/actions/courses";
 import CourseCard from "@/components/courseCard";
 import Image from "next/image";
 import getCurrentUser from "@/actions/getCurrentUser";

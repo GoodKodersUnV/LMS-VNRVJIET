@@ -7,7 +7,7 @@ import toast from "react-hot-toast";
 import { useState } from "react";
 import { MdOutlineEdit } from "react-icons/md";
 import { RxCross2 } from "react-icons/rx";
-
+import { PiUsersFourFill } from "react-icons/pi";
 
 export default function CourseCard({ course,currentUser }: any) {
 
@@ -95,9 +95,17 @@ export default function CourseCard({ course,currentUser }: any) {
                 <div onClick={() => router.push(`/courses/${course.id}`) } className=" cursor-pointer" > 
                     <h1 className="text-sm">{course?.title}</h1>
                 </div>
-                <button hidden ={ currentUser.role !== 'INSTRUCTOR' } onClick={()=>setOpenPopup(true)}>
-                    <MdOutlineEdit className=" w-5 h-5 cursor-pointer"  />
-                </button>
+                {
+                    currentUser?.role === 'INSTRUCTOR' &&
+                  <div className=" flex items-center justify-between gap-3">
+                    <button onClick={ () => router.push(`courses/${course.id}/users`)} >
+                        <PiUsersFourFill className = 'w-5 h-5 cursor-pointer hover:opacity-85  ' />
+                    </button>
+                    <button onClick={()=>setOpenPopup(true)}>
+                        <MdOutlineEdit className=" w-5 h-5 cursor-pointer hover:opacity-85"   />
+                    </button>
+                </div>
+                }
             </div>
                 {
                 openPopup

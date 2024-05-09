@@ -265,3 +265,18 @@ export const getCourseByCourseId = async (id: string) => {
   });
   return course;
 }
+
+export const getEnrolledStudentsByCourseId = async (id: string) => {
+  const students = await db.user.findMany({
+    where: {
+      enrolledUsers: {
+        some: {
+          course: {
+            id: id,
+          },
+        },
+      },
+    },
+  });
+  return students;
+}
