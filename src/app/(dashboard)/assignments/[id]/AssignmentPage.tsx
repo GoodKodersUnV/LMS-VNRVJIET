@@ -54,14 +54,7 @@ export default function AssignmentPage({
 
   const handleSave = async (index: number) => {
     try {
-      if(editedScores.responsiveness < 0 || editedScores.responsiveness > 10 || editedScores.styling < 0 || editedScores.styling > 10 || editedScores.other < 0 || editedScores.other > 10){
-        toast.error("Scores should be between 0 and 10");
-        return;
-      }
-      
-
       toast.loading("Updating Scores...");
-
       await axios.post("/api/points", {
         submissionId: assignment.submissions[index].id,
         score: editedScores.responsiveness,
@@ -78,16 +71,14 @@ export default function AssignmentPage({
         category: "OTHER",
       });
       toast.dismiss();
-      toast.success("Scores saved successfully");
     } catch {
-      toast.dismiss()
       toast.error("Failed to save scores");
     } finally {
+      toast.success("Scores saved successfully");
       setEditingIndex(-1);
       router.refresh();
     }
   };
-  const pathname=usePathname()
 
   const searchParams = useSearchParams();
   
@@ -98,7 +89,7 @@ export default function AssignmentPage({
       (x.enrolledUser.username.toLowerCase().includes(searchQuery.toLowerCase())||x.enrolledUser.username.toLowerCase().includes(searchQuery.toLowerCase()))
     );
   }
-
+  // return <pre>{JSON.stringify(assignments, null, 2)}</pre>
   return (
     <div className="mx-2 md:mx-10 my-2 relative">
       <h1 className="text-center p-2 bg-gradient-to-l from-blue-500 to-blue-600 text-white rounded text-sm md:text-lg font-medium">
@@ -212,6 +203,24 @@ export default function AssignmentPage({
                       scope="col"
                       className="px-6 py-3 text-sm font-medium uppercase tracking-wider"
                     >
+                      Responsiveness
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-6 py-3 text-sm font-medium uppercase tracking-wider"
+                    >
+                      Styling
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-6 py-3 text-sm font-medium uppercase tracking-wider"
+                    >
+                      Others
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-6 py-3 text-sm font-medium uppercase tracking-wider"
+                    >
                       Total
                     </th>
                     {currentUser.role !== "STUDENT" && (
@@ -259,21 +268,14 @@ export default function AssignmentPage({
                               href={submission.submissionLink}
                               className="text-blue-400 font-semibold break-words"
                             >
-                            LINK
-                          </a>
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          {submission.submissionDate
-                            .toISOString()
-                            .split("T")[0] || "NA"}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          {rValue?.score || sValue?.score || oValue?.score
-                            ? totalScore
-                            : "NA"}
-                        </td>
-                        {currentUser.role !== "STUDENT" && (
-
+                              LINK
+                            </a>
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap">
+                            {submission.submissionDate
+                              .toISOString()
+                              .split("T")[0] || "NA"}
+                          </td>
                           <td className="px-6 py-4 whitespace-nowrap">
                             {editingIndex === index ? (
                               <input
@@ -413,19 +415,19 @@ export default function AssignmentPage({
                       scope="col"
                       className="px-6 py-3 text-sm font-medium uppercase tracking-wider"
                     >
-                      Responsiveness (/10)
+                      Responsiveness
                     </th>
                     <th
                       scope="col"
                       className="px-6 py-3 text-sm font-medium uppercase tracking-wider"
                     >
-                      Styling (/10)
+                      Styling
                     </th>
                     <th
                       scope="col"
                       className="px-6 py-3 text-sm font-medium uppercase tracking-wider"
                     >
-                      Others (/10)
+                      Others
                     </th>
                     <th
                       scope="col"
@@ -475,83 +477,19 @@ export default function AssignmentPage({
                               currentUser?.role === "STUDENT" && "hidden"
                             } px-6 py-4 whitespace-nowrap`}
                           >
-
                             <a
                               target="_blank"
                               href={submission.submissionLink}
                               className="text-blue-400 font-semibold break-words"
                             >
-                               LINK
+                              LINK
                             </a>
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          {submission.submissionDate
-                            .toISOString()
-                            .split("T")[0] || "NA"}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          {editingIndex === index ? (
-                            <input
-                              title="null"
-                              type="number"
-                              value={Math.min(Math.max(editedScores.responsiveness, 0), 10)}
-                              onChange={(e) => {
-                                const newScore = Math.min(Math.max(parseInt(e.target.value), 0), 10); 
-                                setEditedScores((prevScores) => ({
-                                  ...prevScores,
-                                  responsiveness: newScore,
-                                }));
-                              }}
-                              className="bg-transparent border-black rounded-lg px-2 border-2 text-background w-20"
-                            />
-                          ) : (
-                            rValue?.score || "NA"
-                          )}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          {editingIndex === index ? (
-                            <input
-                              title="null"
-                              type="number"
-                              value={Math.min(Math.max(editedScores.styling, 0), 10)}
-                              onChange={(e) => {
-                                const newScore = Math.min(Math.max(parseInt(e.target.value), 0), 10); 
-                                setEditedScores((prevScores) => ({
-                                  ...prevScores,
-                                  styling: newScore,
-                                }));
-                              }}
-                              className="bg-transparent border-black rounded-lg px-2 border-2 text-background w-20"
-                            />
-                          ) : (
-                            sValue?.score || "NA"
-                          )}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          {editingIndex === index ? (
-                            <input
-                              title="null"
-                              type="number"
-                              value={Math.min(Math.max(editedScores.other, 0), 10)}
-                              onChange={(e) => {
-                                const newScore = Math.min(Math.max(parseInt(e.target.value), 0), 10); 
-                                setEditedScores((prevScores) => ({
-                                  ...prevScores,
-                                  other: newScore ,
-                                }));
-                              }}
-                              className="bg-transparent border-black rounded-lg px-2 border-2 text-background w-20"
-                            />
-                          ) : (
-                            oValue?.score || "NA"
-                          )}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          {rValue?.score || sValue?.score || oValue?.score
-                            ? totalScore
-                            : "NA"}
-                        </td>
-                        {currentUser.role !== "STUDENT" && (
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap">
+                            {submission.submissionDate
+                              .toISOString()
+                              .split("T")[0] || "NA"}
+                          </td>
                           <td className="px-6 py-4 whitespace-nowrap">
                             {editingIndex === index ? (
                               <input
