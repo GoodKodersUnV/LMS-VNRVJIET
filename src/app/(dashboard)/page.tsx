@@ -1,5 +1,3 @@
-// "use client"
-import React, { useEffect } from 'react';
 import {
   getDashboardData,
   getLeaderboardDataForStudent,
@@ -19,46 +17,8 @@ import {
   getEnrolledStudents,
 } from "@/actions/courses";
 import getCurrentUser from "@/actions/getCurrentUser";
-// import OneSignal from "react-onesignal";
+import Onesignal from "@/components/oneSignal";
 export default async function Home() {
-
-
-  // useEffect(() => {
-  //   const loadOneSignal = async () => {
-  //     try {
-  //       console.log("Loading OneSignal SDK...");
-  //       await OneSignal.init({
-  //         appId: process.env.NEXT_PUBLIC_ONE_SIGNAL!,
-  //         allowLocalhostAsSecureOrigin: true,
-  //       });
-
-  //       console.log("OneSignal has been successfully initialized.");
-  //       OneSignal.Slidedown.promptPush();
-  //     } catch (error) {
-  //       console.error("Error initializing OneSignal:", error);
-  //     }
-  //   };
-
-  //   // Check if OneSignal SDK is already loaded
-  //   if (!window.OneSignal) {
-  //     const script = document.createElement('script');
-  //     script.src = "https://cdn.onesignal.com/sdks/OneSignalSDK.js";
-  //     script.async = true;
-  //     script.onload = loadOneSignal;
-  //     script.onerror = () => console.error("Error loading OneSignal SDK script.");
-  //     document.head.appendChild(script);
-  //   } else {
-  //     loadOneSignal();
-  //   }
-
-  //   // Cleanup function
-  //   return () => {
-  //     console.log("Cleaning up OneSignal...");
-  //     // Optionally, you can call OneSignal.logout() if you need to clear the user session
-  //     // OneSignal.logout();
-  //   };
-  // }, []);
-
 
   const currentUser = await getCurrentUser();
   if (currentUser?.role === "STUDENT") {
@@ -83,6 +43,7 @@ export default async function Home() {
     // return <pre>{JSON.stringify(data,null,2)}</pre>
     return (
       <div className="h-60 bg-gradient-to-l from-blue-400 to-blue-600 m-2 rounded-lg">
+        <Onesignal/>
         <div className="p-10">
           <h1 className="text-secondary-50 font-bold text-2xl">
             Welcome back {currentUser?.name} 👋
