@@ -1,6 +1,7 @@
 import { db } from "@/lib/db";
 import getCurrentUser from "./getCurrentUser";
 import { totalNumberOfClasses } from "./classes";
+import { forEach } from "lodash";
 
 export const postAttendance = async ({
   classId,
