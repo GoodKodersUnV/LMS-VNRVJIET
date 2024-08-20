@@ -1,3 +1,4 @@
+import React, { useEffect } from 'react';
 import {
   getDashboardData,
   getLeaderboardDataForStudent,
@@ -17,7 +18,6 @@ import {
   getEnrolledStudents,
 } from "@/actions/courses";
 import getCurrentUser from "@/actions/getCurrentUser";
-import Onesignal from "@/components/oneSignal";
 export default async function Home() {
   const currentUser = await getCurrentUser();
   if (currentUser?.role === "STUDENT") {
@@ -42,7 +42,6 @@ export default async function Home() {
     // return <pre>{JSON.stringify(data,null,2)}</pre>
     return (
       <div className="h-60 bg-gradient-to-l from-blue-400 to-blue-600 m-2 rounded-lg">
-        <Onesignal/>
         <div className="p-10">
           <h1 className="text-secondary-50 font-bold text-2xl">
             Welcome back {currentUser?.name} 👋
