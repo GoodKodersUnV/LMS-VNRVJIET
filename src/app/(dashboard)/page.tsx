@@ -1,3 +1,4 @@
+import React, { useEffect } from 'react';
 import {
   getDashboardData,
   getLeaderboardDataForStudent,
@@ -18,7 +19,7 @@ import {
 } from "@/actions/courses";
 import getCurrentUser from "@/actions/getCurrentUser";
 export default async function Home() {
-
+  
   const currentUser = await getCurrentUser();
   if (currentUser?.role === "STUDENT") {
     // student
