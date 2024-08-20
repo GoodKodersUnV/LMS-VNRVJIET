@@ -40,7 +40,6 @@ function Onesignal() {
     }, []);
   return (
     <div>
-
     </div>
   )
 }

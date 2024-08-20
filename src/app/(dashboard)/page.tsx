@@ -19,7 +19,6 @@ import {
 import getCurrentUser from "@/actions/getCurrentUser";
 import Onesignal from "@/components/oneSignal";
 export default async function Home() {
-
   const currentUser = await getCurrentUser();
   if (currentUser?.role === "STUDENT") {
     // student
