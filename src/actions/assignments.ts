@@ -769,8 +769,8 @@ export const getStudentEvaluatedAssigments = async (courseId: string) => {
   });
   let totalAssignments = 0;
   noOfTotalAssignments.forEach((assignment) => {
-    totalAssignments += Math.max((assignment.maxSubmissions||1),1);
-  })
+    totalAssignments += Math.max(assignment.maxSubmissions || 1, 1);
+  });
   return {
     evaluated: assignments.length || 0,
     underReview: underReview,
