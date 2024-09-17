@@ -1,5 +1,5 @@
 import { getAllCourses } from "@/actions/courses";
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
   try {
@@ -8,7 +8,7 @@ export async function GET(req: NextRequest) {
     if (!courses) {
       return NextResponse.json(
         { error: "Failed to fetch courses" },
-        { status: 401 }
+        { status: 401 },
       );
     }
 

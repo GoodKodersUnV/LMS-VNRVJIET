@@ -1,7 +1,7 @@
 import {
-    getMentorPieChartData,
-    getStudentEvaluatedAssigmentsForMentor,
-  } from "@/actions/assignments";
+  getMentorPieChartData,
+  getStudentEvaluatedAssigmentsForMentor,
+} from "@/actions/assignments";
 import { getAttendanceOfStudent } from "@/actions/attendance";
 import { getDashboardData } from "@/actions/getLeaderboard";
 import StudentStatClient from "@/components/studentStatClient";
@@ -23,7 +23,7 @@ import StudentStatClient from "@/components/studentStatClient";
         <StudentStatClient 
         totalEvaluatedAssigmentsOfStudent={evaluated}
         totalPoints={totalPoints}
-        forBarChart={[evaluated,underReview,unsubmitted]}
+        forBarChart={[evaluated, underReview, unsubmitted]}
         classes={classes}
         attendanceDates={attendanceDates}
         data={data}
@@ -31,4 +31,3 @@ import StudentStatClient from "@/components/studentStatClient";
       </div>
     );
   }
-  

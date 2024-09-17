@@ -1,5 +1,5 @@
 import { generateReport } from "@/actions/report";
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
   try {
@@ -8,7 +8,7 @@ export async function POST(req: NextRequest) {
     const report = await generateReport(courseId);
 
     return NextResponse.json(report, { status: 200 });
-  } catch (e:any) {
+  } catch (e: any) {
     return NextResponse.json({ message: e.message }, { status: 500 });
   }
 }

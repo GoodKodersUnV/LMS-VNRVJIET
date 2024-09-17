@@ -20,7 +20,7 @@ export default async function Statistics({ params }: any) {
   let loaderValue = !mentorPieChart
     ? 0
     : String(
-        (mentorPieChart![0] * 100) / (mentorPieChart![0] + mentorPieChart![1])
+        (mentorPieChart![0] * 100) / (mentorPieChart![0] + mentorPieChart![1]
       );
   loaderValue += "%";
   const currentUser = await getCurrentUser();
@@ -37,7 +37,6 @@ export default async function Statistics({ params }: any) {
 
   
   const data = await getDashboardData();
-
   return (
     <div>
       <StudentStatClient

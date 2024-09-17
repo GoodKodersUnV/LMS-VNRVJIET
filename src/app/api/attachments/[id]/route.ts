@@ -1,12 +1,12 @@
 import { getAssignmentDetailsByUserId } from "@/actions/assignments";
 import getCurrentUser from "@/actions/getCurrentUser";
 import { db } from "@/lib/db";
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
-) { 
+  { params }: { params: { id: string } },
+) {
   try {
     const currentUser = await getCurrentUser();
     if (!currentUser) {
@@ -14,13 +14,13 @@ export async function GET(
     }
     const assignment = await getAssignmentDetailsByUserId(
       params.id,
-      currentUser.id
+      currentUser.id,
     );
 
     if (!assignment) {
       return NextResponse.json(
         { error: "Assignment not found" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 

@@ -75,6 +75,7 @@ export default function StudentStatClient({
     (a, b) => b[1].totalPoints - a[1].totalPoints
   );
 
+
   sortedLeaderboardArray.forEach((entry, index) => {
     entry[1].rank = index + 1;
   });
