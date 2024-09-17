@@ -3,6 +3,7 @@ import {
     getStudentEvaluatedAssigmentsForMentor,
   } from "@/actions/assignments";
 import { getAttendanceOfStudent } from "@/actions/attendance";
+import { getDashboardData } from "@/actions/getLeaderboard";
 import StudentStatClient from "@/components/studentStatClient";
   
   export default async function Page({params}:any) {
@@ -15,6 +16,7 @@ import StudentStatClient from "@/components/studentStatClient";
         );
     loaderValue += "%";
     const {classes,attendanceDates} = await getAttendanceOfStudent(params.studentId,params.course);
+    const data = await getDashboardData();
     return (
       <div>
         <h1 className="text-blue-400 text-2xl p-10 font-bold">Student - {params.studentId}</h1>
@@ -24,6 +26,7 @@ import StudentStatClient from "@/components/studentStatClient";
         forBarChart={[evaluated,underReview,unsubmitted]}
         classes={classes}
         attendanceDates={attendanceDates}
+        data={data}
         />
       </div>
     );

@@ -3,12 +3,13 @@ import {
     getStudentEvaluatedAssigmentsForMentor,
   } from "@/actions/assignments";
 import { getAttendanceOfStudent } from "@/actions/attendance";
+import { getDashboardData } from "@/actions/getLeaderboard";
   import StudentStatClient from "@/components/studentStatClient";
   
   export default async function Page({params}:any) {
     const { evaluated, underReview, unsubmitted, totalPoints}:any = await getStudentEvaluatedAssigmentsForMentor(params.id,params.course);
   const {classes,attendanceDates} = await getAttendanceOfStudent(params.id,params.course);
-
+  const data = await getDashboardData();
     return (
       <div>
         <h1 className="text-blue-400 text-2xl p-10 font-bold">Student - {params.id}</h1>
@@ -18,6 +19,7 @@ import { getAttendanceOfStudent } from "@/actions/attendance";
         forBarChart={[evaluated,underReview,unsubmitted]}
         classes={classes}
         attendanceDates={attendanceDates}
+        data={data}
         />
       </div>
     );
