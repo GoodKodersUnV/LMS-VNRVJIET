@@ -23,6 +23,7 @@ enum Role {
   INSTRUCTOR
   MENTOR
   STUDENT
+  ADMIN
 }
 
 model User {
@@ -297,10 +298,9 @@ model Account {
 
 model Session {
   id           String   @id @default(uuid())
-  sessionToken String   @unique
   userId       String
   user         User     @relation(fields: [userId], references: [id])
-  expires      DateTime
+  expires      DateTime?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
