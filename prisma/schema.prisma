@@ -297,10 +297,11 @@ model Account {
 }
 
 model Session {
-  id           String   @id @default(uuid())
+  id           String    @id @default(uuid())
+  sessionToken String    @unique
   userId       String
-  user         User     @relation(fields: [userId], references: [id])
-  expires      DateTime?
+  user         User      @relation(fields: [userId], references: [id])
+  expires      DateTime
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
